@@ -15,13 +15,13 @@ def run(img_dir, labels):
         idm.set_all_files(st.session_state["files"])
         idm.set_annotation_files(st.session_state["annotation_files"])
     
-    @st.cache_data
+    @st.cache_resource
     def refresh():
         st.session_state["files"] = idm.get_all_files()
         st.session_state["annotation_files"] = idm.get_exist_annotation_files()
         st.session_state["image_index"] = 0
 
-    @st.cache_data
+    @st.cache_resource
     def next_image():
         image_index = st.session_state["image_index"]
         if image_index < len(st.session_state["files"]) - 1:
@@ -29,7 +29,7 @@ def run(img_dir, labels):
         else:
             st.warning('This is the last image.')
 
-    @st.cache_data
+    @st.cache_resource
     def previous_image():
         image_index = st.session_state["image_index"]
         if image_index > 0:
@@ -37,7 +37,7 @@ def run(img_dir, labels):
         else:
             st.warning('This is the first image.')
 
-    @st.cache_data
+    @st.cache_resource
     def next_annotate_file():
         image_index = st.session_state["image_index"]
         next_image_index = idm.get_next_annotation_image(image_index)
@@ -47,7 +47,7 @@ def run(img_dir, labels):
             st.warning("All images are annotated.")
             next_image()
 
-    @st.cache_data
+    @st.cache_resource
     def go_to_image():
         file_index = st.session_state["files"].index(st.session_state["file"])
         st.session_state["image_index"] = file_index
@@ -83,7 +83,7 @@ def run(img_dir, labels):
     resized_rects = im.get_resized_rects()
     rects = st_img_label(resized_img, box_color="red", rects=resized_rects)
 
-    @st.cache_data
+    @st.cache_resource
     def annotate():
         im.save_annotation()
         image_annotate_file_name = img_file_name.split(".")[0] + ".xml"
