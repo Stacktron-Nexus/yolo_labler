@@ -14,7 +14,7 @@ def run(img_dir, labels):
     else:
         idm.set_all_files(st.session_state["files"])
         idm.set_annotation_files(st.session_state["annotation_files"])
-
+    
     def refresh():
         st.session_state["files"] = idm.get_all_files()
         st.session_state["annotation_files"] = idm.get_exist_annotation_files()
@@ -105,5 +105,5 @@ def run(img_dir, labels):
                 im.set_annotation(i, select_label)
 
 if __name__ == "__main__":
-    custom_labels = ["", "abandoned vehicle", "potholes", "graffiti"]
+    custom_labels = ["", "dog", "cat"]
     run("img_dir", custom_labels)
