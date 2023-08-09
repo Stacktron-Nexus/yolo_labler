@@ -40,7 +40,9 @@ def run(img_dir, labels):
     @st.cache_resource
     def next_annotate_file():
         image_index = st.session_state["image_index"]
+        print(image_index)
         next_image_index = idm.get_next_annotation_image(image_index)
+        print(next_image_index)
         if next_image_index:
             st.session_state["image_index"] = idm.get_next_annotation_image(image_index)
         else:
